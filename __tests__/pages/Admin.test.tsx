@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import HomePage from "@/app/(app)/page";
+import AdminPage from "@/app/admin/page";
 
-describe("Home Page", () => {
+describe("Admin Page", () => {
   it("should render correctly", () => {
-    render(<HomePage />);
+    render(<AdminPage />);
     expect(screen).toMatchSnapshot();
   });
 });

@@ -1,9 +1,9 @@
 import { render, screen } from "@testing-library/react";
-import HomePage from "@/app/(app)/page";
+import Step3Page from "@/app/(app)/step3/page";
 
-describe("Home Page", () => {
+describe("Onboarding Step3 Page", () => {
   it("should render correctly", () => {
-    render(<HomePage />);
+    render(<Step3Page />);
     expect(screen).toMatchSnapshot();
   });
 });
