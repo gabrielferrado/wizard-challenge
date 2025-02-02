@@ -6,4 +6,24 @@ describe("Home Page", () => {
     render(<HomePage />);
     expect(screen).toMatchSnapshot();
   });
+
+  it("should find stepper component", () => {
+    const { getByTestId } = render(<HomePage />);
+
+    const stepper = getByTestId("stepper");
+
+    expect(stepper).toBeTruthy();
+  });
+
+  it("should find all required inputs", () => {
+    const { getByTestId } = render(<HomePage />);
+
+    const emailInput = getByTestId("email");
+    const passwordInput = getByTestId("password");
+    const submitButton = getByTestId("submitButton");
+
+    expect(emailInput).toBeTruthy();
+    expect(passwordInput).toBeTruthy();
+    expect(submitButton).toBeTruthy();
+  });
 });
