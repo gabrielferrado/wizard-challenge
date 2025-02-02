@@ -21,7 +21,16 @@ const eslintConfig = [
       "prefer-template": ["error"],
       "no-multiple-empty-lines": ["error", { max: 1, maxEOF: 0 }],
       "no-trailing-spaces": ["error", { ignoreComments: true }],
-      "object-curly-spacing": ["error", "always"]
+      "object-curly-spacing": ["error", "always"],
+      "react/jsx-indent": ["error", 2],
+      "react/jsx-indent-props": ["error", 2],
+      "react/jsx-one-expression-per-line": ["error"],
+      "react/jsx-first-prop-new-line": ["error", "multiline"],
+      "react/jsx-max-props-per-line": ["error", { maximum: 1, when: "always" }],
+      "react/jsx-closing-bracket-location": [
+        "error",
+        { selfClosing: "line-aligned", nonEmpty: "line-aligned" }
+      ]
     }
   })
 ];
