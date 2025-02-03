@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import * as ReactQuery from "@tanstack/react-query";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -61,5 +61,33 @@ describe("AdminPage", () => {
     render(<AdminPage />);
 
     expect(screen.getByText("Unexpected Error")).toBeTruthy();
+  });
+
+  it("calls mutate successfully", () => {
+    const mockMutate = jest.fn();
+
+    (useMutation as jest.Mock).mockReturnValue({
+      mutate: mockMutate,
+    });
+
+    render(<AdminPage />);
+
+    fireEvent.click(screen.getByTestId("submitButton"));
+
+    expect(mockMutate).toHaveBeenCalledTimes(1);
+  });
+
+  it("shows success alert when mutation status is 'success'", async () => {
+    (useMutation as jest.Mock).mockReturnValue({
+      mutate: jest.fn(),
+      isError: false,
+      status: "success",
+    });
+
+    render(<AdminPage />);
+
+    await waitFor(() => {
+      expect(global.alert).toHaveBeenCalledWith("Components updated successfully!");
+    });
   });
 });
