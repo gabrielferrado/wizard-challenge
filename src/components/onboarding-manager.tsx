@@ -36,9 +36,9 @@ const OnboardingManager: React.FC<OnboardingManagerProps> = ({ pages, components
       {machine.map((component) => (
         <div
           key={component.id}
-          className="border border-gray-100/20 p-4 rounded grid grid-cols-5 gap-4"
+          className="border border-gray-100/20 p-4 rounded grid grid-cols-3 md:grid-cols-5 gap-4"
         >
-          <p className="font-bold col-span-2">
+          <p className="font-bold col-span-3 md:col-span-2">
             {component.componentName}
           </p>
           <div className="flex">
@@ -102,7 +102,7 @@ const OnboardingManager: React.FC<OnboardingManagerProps> = ({ pages, components
           disabled={!isValid}
           data-testid='submitButton'
           type="submit"
-          className="text-white enabled:bg-blue-700 enabled:hover:bg-blue-800 enabled:focus:ring-4 enabled:focus:outline-none enabled:focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center enabled:dark:bg-blue-600 enabled:dark:hover:bg-blue-700 enabled:dark:focus:ring-blue-800 disabled:bg-gray-400"
+          className="text-white enabled:bg-blue-700 enabled:hover:bg-blue-800 enabled:focus:ring-4 enabled:focus:outline-none enabled:focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center enabled:dark:bg-blue-600 enabled:dark:hover:bg-blue-700 enabled:dark:focus:ring-blue-800 disabled:bg-gray-400"
         >
           Save
         </button>
