@@ -159,4 +159,32 @@ describe("OnboardingManager", () => {
     const submitButton = screen.queryByTestId("submitButton");
     expect(submitButton).toBeNull();
   });
+
+  it("ensure handlePageChange works correctly", () => {
+    const mockComponents: Component[] = [
+      { id: 201, pageId: 1, componentName: "ADDRESS" },
+      { id: 202, pageId: 2, componentName: "ABOUT_ME" },
+      { id: 203, pageId: null, componentName: "BIRTHDATE" },
+    ];
+
+    render(
+      <OnboardingManager
+        pages={mockPages}
+        components={mockComponents}
+        handleSubmit={mockHandleSubmit}
+      />
+    );
+
+    const addressStep3 = screen.getByTestId("ADDRESS-step3");
+    const aboutMeStep2 = screen.getByTestId("ABOUT_ME-step2");
+    const birthdateStep2 = screen.getByTestId("BIRTHDATE-step2");
+
+    fireEvent.click(addressStep3);
+    fireEvent.click(aboutMeStep2);
+    fireEvent.click(birthdateStep2);
+
+    expect(addressStep3).toBeChecked();
+    expect(aboutMeStep2).toBeChecked();
+    expect(birthdateStep2).toBeChecked();
+  });
 });
