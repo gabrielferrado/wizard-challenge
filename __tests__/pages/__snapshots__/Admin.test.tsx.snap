@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Admin Page renders the list of onboarding components 1`] = `
+exports[`AdminPage renders page successfully 1`] = `
 {
   "debug": [Function],
   "findAllByAltText": [Function],
