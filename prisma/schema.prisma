@@ -41,7 +41,7 @@ model OnboardingPage {
 
 model OnboardingComponent {
   id            Int             @id @default(autoincrement())
-  componentName ComponentName
+  componentName ComponentName   @unique
   pageId        Int?
   page          OnboardingPage? @relation(fields: [pageId], references: [id])
 }
