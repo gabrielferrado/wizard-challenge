@@ -1,15 +1,30 @@
-import React from "react";
+"use client";
+import React, { useMemo } from "react";
+import { usePathname } from "next/navigation";
 
-const Stepper = () => {
+export default function Stepper() {
+  const pathname = usePathname();
+
+  const currentStep = useMemo(() => {
+    switch (pathname) {
+    case "/step2":
+      return 2;
+    case "/step3":
+      return 3;
+    default:
+      return 1;
+    }
+  }, [pathname]);
+
   return (
     <ol
       data-testid="stepper"
       className="flex items-center w-full"
     >
-      <li className="flex w-full items-center text-blue-600 dark:text-blue-500 after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700">
-        <span className="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-blue-700 shrink-0">
+      <li className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block ${currentStep > 1 ? "after:border-blue-700" : "after:border-gray-700"}`}>
+        <span className="flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 bg-blue-700 shrink-0">
           <svg
-            className="w-4 h-4 text-gray-500 lg:w-5 lg:h-5 dark:text-gray-100"
+            className="w-4 h-4 text-gray-100 lg:w-5 lg:h-5"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
@@ -22,13 +37,13 @@ const Stepper = () => {
         </span>
       </li>
       <li
-        className="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700"
+        className={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-4 after:inline-block ${currentStep > 2 ? "after:border-blue-700" : "after:border-gray-700"}`}
       >
         <span
-          className="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0"
+          className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 ${currentStep > 1 ? "bg-blue-700" : "bg-gray-700"} shrink-0`}
         >
           <svg
-            className="w-3.5 h-3.5 text-gray-500 lg:w-4 lg:h-4 dark:text-gray-100"
+            className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-gray-100"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -46,10 +61,10 @@ const Stepper = () => {
       </li>
       <li className="flex items-center">
         <span
-          className="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0"
+          className={`flex items-center justify-center w-10 h-10 rounded-full lg:h-12 lg:w-12 ${currentStep > 2 ? "bg-blue-700" : "bg-gray-700"} shrink-0`}
         >
           <svg
-            className="w-4 h-4 text-gray-500 lg:w-5 lg:h-5 dark:text-gray-100"
+            className="w-4 h-4 lg:w-5 lg:h-5 text-gray-100"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
@@ -62,5 +77,3 @@ const Stepper = () => {
     </ol>
   );
 };
-
-export default Stepper;
