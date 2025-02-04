@@ -16,10 +16,12 @@ const config: Config = {
   testPathIgnorePatterns : [
     "node_modules",
     "src/http",
+    "src/hooks",
   ],
   coveragePathIgnorePatterns: [
     "node_modules",
     "src/http",
+    "src/hooks",
   ]
 };
 
