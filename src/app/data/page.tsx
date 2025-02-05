@@ -2,6 +2,8 @@ import React from "react";
 import { prisma } from "@/lib/db";
 import sanitizeAddress from "@/util/sanitize-address";
 
+export const dynamic = "force-dynamic";
+
 export default async function DataPage (){
   const users = await prisma.user.findMany();
 
