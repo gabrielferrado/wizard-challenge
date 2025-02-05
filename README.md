@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Wizard Challenge
+
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/gabrielferrado/wizard-challenge/ci.yml?branch=main)](https://github.com/gabrielferrado/wizard-challenge/actions)
+[![Coverage Status](https://img.shields.io/badge/coverage-XX%25-brightgreen)](./coverage/index.html)
+
+A Next.js-based onboarding wizard application built to demonstrate a multistep registration flow, admin customization, and data visualization. This project was developed as part of a coding challenge and is fully deployed on Vercel.
+
+## Live Demo
+
+Check out the live demo here: [https://zealthy-wizard-challenge.vercel.app/](https://zealthy-wizard-challenge.vercel.app/)
+
+## Overview
+
+The application is divided into three main sections:
+
+### Section 1 - User Onboarding Section
+
+- **Description:**  
+  This is the main page where users can sign up by providing their email and password. After submission, users navigate through a three-step onboarding wizard.
+- **Wizard Steps:**
+    - **Step 1 (Credentials):**  
+      Users enter their email and password.
+    - **Step 2 (User Details):**  
+      A customizable page (configured via the admin section) where components such as a large text area for "About Me", an address form (street address, city, state, zip), and a birthdate selector can appear.
+    - **Step 3 (Additional Details):**  
+      Another customizable page to collect additional user data before proceeding further.
+
+### Section 2 - Admin Section
+
+- **Description:**  
+  Accessible via the `/admin` URL, this section allows non-technical administrators to configure which data components appear on the 2nd and 3rd pages of the onboarding flow.
+- **Features:**  
+  Admins can assign components (e.g., Birthdate, About Me, Address) to each page, ensuring that each page has at least one component (and optionally two).
+
+### Section 3 - Data Table
+
+- **Description:**  
+  Accessible via the `/data` URL, this section displays an HTML table of all user data that has been persisted to the backend database.
+- **Purpose:**  
+  It is used for testing and monitoring how the app interacts with the database (no authentication is required).
+
+## Technologies Used
+
+- **Next.js**: Framework for server-rendered React applications.
+- **React**: UI library for building components.
+- **Prisma**: ORM for interacting with the database.
+- **Tailwind CSS**: Utility-first CSS framework.
+- **Jest**: Testing framework for unit and integration tests.
+- **GitHub Actions**: CI/CD pipeline to run tests and check coverage on each commit.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js (v18.x recommended)
+- npm
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### How to run
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Clone the Repository:**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   git clone https://github.com/gabrielferrado/wizard-challenge.git
+   cd wizard-challenge
 
-## Learn More
+2. **Start Prisma**
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   npx prisma db push && npx prisma db seed
+   
+3. **Start Project**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   npm dev
