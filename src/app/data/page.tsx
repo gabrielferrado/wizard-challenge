@@ -2,6 +2,7 @@ import React from "react";
 import { prisma } from "@/lib/db";
 import sanitizeAddress from "@/util/sanitize-address";
 
+// https://stackoverflow.com/questions/74379563/next-js-13-why-isnt-my-root-page-dynamic
 export const dynamic = "force-dynamic";
 
 export default async function DataPage (){
