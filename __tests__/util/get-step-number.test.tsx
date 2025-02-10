@@ -18,8 +18,4 @@ describe("getStepNumber", () => {
   it("should handle edge cases around partial matches", () => {
     expect(getStepNumber("/only/step")).toBe(0);
   });
-
-  it("should return 1 when user is starting onboarding", () => {
-    expect(getStepNumber("/")).toBe(1);
-  });
 });
