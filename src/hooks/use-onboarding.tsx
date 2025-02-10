@@ -3,7 +3,15 @@ import { useForm, UseFormHandleSubmit, UseFormRegister, UseFormReset } from "rea
 import { usePathname, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { patchUser } from "@/http/patch-user";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import AboutMeForm from "@/components/forms/about-me";
+import AddressForm from "@/components/forms/address";
+import BirthdateForm from "@/components/forms/birthdate";
+import getStepNumber from "@/util/get-step-number";
+import { Page } from "@/interfaces/page";
+import { getPages } from "@/http/get-pages";
+import Image from "next/image";
+import SPINNER from "../../public/spinner.svg";
 
 type Inputs = {
   email: string
@@ -17,21 +25,27 @@ type Inputs = {
 }
 
 type OnboardingContextProps = {
-  isLoading: boolean
   currentStep: number
+  isLoading: boolean
   reset: UseFormReset<Inputs>
   handleSubmit: UseFormHandleSubmit<Inputs>
   register: UseFormRegister<Inputs>
   validatePartial: (data: Partial<Inputs>) => void,
+  availableSteps?: number[]
 }
 
 const OnboardingContext = createContext<OnboardingContextProps>({} as never);
 
+export const OnboardingAvailableForms = {
+  ABOUT_ME: AboutMeForm,
+  ADDRESS: AddressForm,
+  BIRTHDATE: BirthdateForm,
+};
+
 const OnboardingContextProvider: React.FC<
   React.PropsWithChildren & {
   data?: OnboardingContextProps
-}
-> = ({ children }) => {
+}> = ({ children }) => {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -39,39 +53,55 @@ const OnboardingContextProvider: React.FC<
     mutationFn: patchUser,
     mutationKey: ["upsert-user"]
   });
+
+  const {
+    isLoading,
+    data: pages = [],
+  } = useQuery<Page[]>({
+    queryKey: ["pages"],
+    queryFn: getPages,
+  });
+
   const {
     register,
     handleSubmit,
     reset
   } = useForm<Inputs>();
 
+  const availableSteps = useMemo(() => pages.map(page => page.step), [pages]);
+
   const currentStep = useMemo(() => {
-    switch (pathname) {
-    case "/step2":
-      return 2;
-    case "/step3":
-      return 3;
-    default:
-      return 1;
-    }
+    if (!pathname.includes("step")) return 1;
+
+    return getStepNumber(pathname);
   }, [pathname]);
 
   const validatePartial = useCallback((data: Partial<Inputs>) => {
-    switch (currentStep) {
-    case 1:
+    const nextStep = currentStep + 1;
+    const hasNextStep = availableSteps.includes(nextStep);
+
+    if (currentStep === 1 && hasNextStep) {
       Cookies.set("SESSION", String(data.email), { expires: 7 });
-      upsertUser(data);
-      return router.push("/step2");
-    case 2:
       upsertUser({ ...data, currentStep });
-      return router.push("/step3");
-    case 3:
+      return router.push(`/step${nextStep}`);
+    }
+
+    if (hasNextStep) {
+      upsertUser({ ...data, currentStep });
+      return router.push(`/step${nextStep}`);
+    } else {
       upsertUser({ ...data, currentStep });
       return router.push("/data");
-    default:
-      return null;
     }
-  }, [currentStep, router, upsertUser]);
+  }, [currentStep, availableSteps, router, upsertUser]);
+
+  if (isLoading) {
+    return (
+      <div className="w-full flex flex-col items-center justify-center">
+        <Image priority src={SPINNER} alt='Loading' />
+      </div>
+    );
+  }
 
   return (
     <OnboardingContext.Provider
@@ -81,7 +111,8 @@ const OnboardingContextProvider: React.FC<
         handleSubmit,
         reset,
         validatePartial,
-        isLoading: isPending
+        isLoading: isPending,
+        availableSteps,
       }}
     >
       {children}
