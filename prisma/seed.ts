@@ -5,13 +5,13 @@ const prisma = new PrismaClient();
 async function main() {
   const step2 = await prisma.onboardingPage.create({
     data: {
-      pageNumber: 2,
+      step: 2,
     },
   });
 
   const step3 = await prisma.onboardingPage.create({
     data: {
-      pageNumber: 3,
+      step: 3,
     },
   });
 

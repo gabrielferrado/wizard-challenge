@@ -36,7 +36,7 @@ model User {
 
 model OnboardingPage {
   id         Int                   @id @default(autoincrement())
-  pageNumber Int                   @unique
+  step       Int                   @unique
   components OnboardingComponent[]
 }
 
