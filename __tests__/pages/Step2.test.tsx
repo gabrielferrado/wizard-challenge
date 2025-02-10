@@ -16,7 +16,7 @@ describe("Onboarding Step2 Page", () => {
     prisma.onboardingPage.findFirst.mockResolvedValue([
       {
         id: 1,
-        pageNumber: 1,
+        step: 1,
         components: [{ id: 1, componentName: "ABOUT_ME", pageId: 1 }]
       }
     ]);

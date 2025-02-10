@@ -2,6 +2,6 @@ import { Component } from "@/interfaces/component";
 
 export interface Page {
   id: number;
-  pageNumber: number;
+  step: number;
   components?: Component[]
 }

@@ -6,7 +6,7 @@ import { prisma } from "@/lib/db";
 export const dynamic = "force-dynamic";
 
 export default async function Step2Page() {
-  const pageController = await prisma.onboardingPage.findFirst({ where: { pageNumber: 1 }, include: { components: true } });
+  const pageController = await prisma.onboardingPage.findFirst({ where: { step: 2 }, include: { components: true } });
 
   if (!pageController) {
     return (

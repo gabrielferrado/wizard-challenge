@@ -9,8 +9,8 @@ import { Component } from "@/interfaces/component";
 const mockHandleSubmit = jest.fn();
 
 const mockPages: Page[] = [
-  { id: 1, pageNumber: 1 },
-  { id: 2, pageNumber: 2 },
+  { id: 1, step: 1 },
+  { id: 2, step: 2 },
 ];
 
 describe("OnboardingManager", () => {

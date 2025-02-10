@@ -14,8 +14,7 @@ export default async function Home() {
       },
     });
 
-    if (user?.currentStep === 1) return redirect("/step2");
-    if (user?.currentStep === 2) return redirect("/step3");
+    if (user?.currentStep) return redirect(`/step${user.currentStep+1}`);
   }
 
   return (

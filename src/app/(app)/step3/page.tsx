@@ -6,7 +6,7 @@ import ControlledForm from "@/components/controlled-form";
 export const dynamic = "force-dynamic";
 
 export default async function Step3Page() {
-  const pageController = await prisma.onboardingPage.findFirst({ where: { pageNumber: 2 }, include: { components: true } });
+  const pageController = await prisma.onboardingPage.findFirst({ where: { step: 3 }, include: { components: true } });
 
   if (!pageController) {
     return (
