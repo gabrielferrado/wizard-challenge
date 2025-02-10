@@ -3,29 +3,29 @@ import { ComponentName, PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  const page1 = await prisma.onboardingPage.create({
+  const step2 = await prisma.onboardingPage.create({
     data: {
-      pageNumber: 1,
+      pageNumber: 2,
     },
   });
 
-  const page2 = await prisma.onboardingPage.create({
+  const step3 = await prisma.onboardingPage.create({
     data: {
-      pageNumber: 2,
+      pageNumber: 3,
     },
   });
 
   await prisma.onboardingComponent.create({
     data: {
       componentName: ComponentName.ABOUT_ME,
-      pageId: page1.id,
+      pageId: step2.id,
     },
   });
 
   await prisma.onboardingComponent.create({
     data: {
       componentName: ComponentName.BIRTHDATE,
-      pageId: page2.id,
+      pageId: step3.id,
     },
   });
 
