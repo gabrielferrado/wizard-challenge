@@ -33,13 +33,13 @@ describe("AdminPage", () => {
     });
   });
 
-  it("renders page successfully", () => {
+  it("should render page successfully", () => {
     render(<AdminPage />);
 
     expect(screen).toMatchSnapshot();
   });
 
-  it("renders loading state when queries are pending", () => {
+  it("should render loading state when queries are pending", () => {
     (useQuery as jest.Mock).mockImplementation(() => ({
       isPending: true,
       error: null,
@@ -51,7 +51,7 @@ describe("AdminPage", () => {
     expect(screen.getByText("Loading...")).toBeTruthy();
   });
 
-  it("renders error state if queries fail", () => {
+  it("should render error state if queries fail", () => {
     (useQuery as jest.Mock).mockImplementation(() => ({
       isPending: false,
       error: new Error("Failed to load"),
@@ -63,7 +63,7 @@ describe("AdminPage", () => {
     expect(screen.getByText("Unexpected Error")).toBeTruthy();
   });
 
-  it("calls mutate successfully", () => {
+  it("should call mutate successfully", () => {
     const mockMutate = jest.fn();
 
     (useMutation as jest.Mock).mockReturnValue({
@@ -77,7 +77,7 @@ describe("AdminPage", () => {
     expect(mockMutate).toHaveBeenCalledTimes(1);
   });
 
-  it("shows success alert when mutation status is 'success'", async () => {
+  it("should trigger success alert when mutation status is 'success'", async () => {
     (useMutation as jest.Mock).mockReturnValue({
       mutate: jest.fn(),
       isError: false,
