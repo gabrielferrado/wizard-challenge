@@ -13,7 +13,7 @@ describe("Stepper Component", () => {
     jest.clearAllMocks();
   });
 
-  it("should render only the Start bubble when availableSteps is empty (totalSteps = 1)", () => {
+  it("should render only the Start bubble when availableSteps is empty", () => {
     (useOnboarding as jest.Mock).mockReturnValue({
       currentStep: 1,
       availableSteps: [],
@@ -28,10 +28,10 @@ describe("Stepper Component", () => {
     expect(listItems[0].textContent).toContain("1");
   });
 
-  it("should render Start and End bubbles when totalSteps = 2 (availableSteps length = 1)", () => {
+  it("should render 2 steps correctly", () => {
     (useOnboarding as jest.Mock).mockReturnValue({
       currentStep: 1,
-      availableSteps: [{}], // length 1 → totalSteps = 2
+      availableSteps: [{}],
     });
 
     render(<Stepper />);
@@ -44,7 +44,7 @@ describe("Stepper Component", () => {
     expect(listItems[1].textContent).toContain("2");
   });
 
-  it("should render Start, one MiddleStep, and End bubbles when totalSteps = 3 (availableSteps length = 2)", () => {
+  it("should render 3 steps correctly", () => {
     (useOnboarding as jest.Mock).mockReturnValue({
       currentStep: 2,
       availableSteps: [{}, {}],
@@ -59,6 +59,25 @@ describe("Stepper Component", () => {
     expect(listItems[0].textContent).toContain("1");
     expect(listItems[1].textContent).toContain("2");
     expect(listItems[2].textContent).toContain("3");
+  });
+
+  it("should render more than 3 steps correctly", () => {
+    (useOnboarding as jest.Mock).mockReturnValue({
+      currentStep: 2,
+      availableSteps: [{}, {}, {}, {}],
+    });
+
+    render(<Stepper />);
+
+    const stepper = screen.getByTestId("stepper");
+    const listItems = stepper.querySelectorAll("li");
+
+    expect(listItems).toHaveLength(5);
+    expect(listItems[0].textContent).toContain("1");
+    expect(listItems[1].textContent).toContain("2");
+    expect(listItems[2].textContent).toContain("3");
+    expect(listItems[3].textContent).toContain("4");
+    expect(listItems[4].textContent).toContain("5");
   });
 
   it("should render active (blue) classes when currentStep is high enough", () => {
