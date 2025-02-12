@@ -65,12 +65,10 @@ export default async function DataPage (){
                     {sanitizeAddress(user)}
                   </td>
                   <td className="px-6 py-4">
-                    {user.birthdate
-                      ? new Date(user.birthdate).toLocaleDateString()
-                      : "-"}
+                    {user.birthdate ? new Date(user.birthdate).toLocaleDateString() : "-"}
                   </td>
                   <td className="px-6 py-4">
-                    {user.currentStep > 2 ? "Finished Onboarding" : user.currentStep}
+                    {user.currentStep}
                   </td>
                   <td className="px-6 py-4">
                     {new Date(user.createdAt).toLocaleString()}
